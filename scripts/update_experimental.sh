@@ -1,30 +1,19 @@
 #!/bin/bash
-# MiSTer Experimental Core Incubator updater
+# MiSTer Experimental Core Incubator updater helper
 # SPDX-License-Identifier: MIT
 set -euo pipefail
 
 MISTER_ROOT="${MISTER_ROOT:-/media/fat}"
-DOWNLOADER="${MISTER_ROOT}/Scripts/downloader.sh"
-DROPIN_FILE="${MISTER_ROOT}/downloader_experimental.ini"
-TMP_DIR="${TMPDIR:-/tmp}/mister-experimental"
-
-# These are intentionally configurable so a fork can point at its own database.
-EXPERIMENTAL_DB_URL="${EXPERIMENTAL_DB_URL:-https://raw.githubusercontent.com/austinbland1/MiSTer-Experimental/db/db.json.zip}"
-EXPERIMENTAL_DB_ID="${EXPERIMENTAL_DB_ID:-austinbland1/MiSTer-Experimental}"
+DROPIN_FILE="${MISTER_ROOT}/downloader_austinbland1_MiSTer-Experimental.ini"
+DB_URL="${EXPERIMENTAL_DB_URL:-https://raw.githubusercontent.com/austinbland1/MiSTer-Experimental/db/db.json.zip}"
+DB_ID="${EXPERIMENTAL_DB_ID:-austinbland1/MiSTer-Experimental}"
 
 usage() {
-    cat <<USAGE
-Usage: $(basename "$0") [options]
+  cat <<USAGE
+Usage: $(basename "$0") [--install-only|--status|--remove]
 
-Installs/refreshes the Experimental Core Incubator Downloader database and
-then runs MiSTer Downloader with the normal MiSTer storage root.
-
-Options:
-  --install-only   Install/update the drop-in database, do not run Downloader.
-  --run            Run Downloader after installing (default).
-  --status         Show local installation status.
-  --remove        Remove the experimental drop-in database.
-  -h, --help       Show this help.
+Installs or removes the MiSTer Experimental Downloader drop-in configuration.
+Run the normal MiSTer 'update' script afterward to install/update payloads.
 
 Environment:
   MISTER_ROOT          MiSTer storage root (default: /media/fat)
@@ -33,71 +22,28 @@ Environment:
 USAGE
 }
 
-say() { printf '[experimental] %s\n' "$*"; }
-fail() { printf '[experimental] ERROR: %s\n' "$*" >&2; exit 1; }
-
 install_dropin() {
-    [[ -d "$MISTER_ROOT" ]] || fail "MiSTer root does not exist: $MISTER_ROOT"
-    # Downloader supports drop-in *.ini files, so we don't modify the user's
-    # main downloader.ini. This file is safe to replace on each update.
-    cat > "$DROPIN_FILE" <<INI
-[${EXPERIMENTAL_DB_ID}]
-db_url = ${EXPERIMENTAL_DB_URL}
+  [[ -d "$MISTER_ROOT" ]] || { echo "ERROR: MiSTer root not found: $MISTER_ROOT" >&2; exit 1; }
+  cat > "$DROPIN_FILE" <<INI
+[${DB_ID}]
+db_url = ${DB_URL}
 INI
-
-    chmod 0644 "$DROPIN_FILE"
-    say "Installed database configuration: $DROPIN_FILE"
-    say "Database: $EXPERIMENTAL_DB_URL"
+  chmod 0644 "$DROPIN_FILE"
+  echo "Installed: $DROPIN_FILE"
 }
 
-remove_dropin() {
-    if [[ -e "$DROPIN_FILE" ]]; then
-        rm -f "$DROPIN_FILE"
-        say "Removed $DROPIN_FILE"
-    else
-        say "Nothing to remove."
-    fi
-}
-
-status() {
-    echo "MiSTer root:       $MISTER_ROOT"
-    echo "Downloader:        $DOWNLOADER"
-    echo "Drop-in database:  $DROPIN_FILE"
-    echo "Configured DB URL:  $EXPERIMENTAL_DB_URL"
-    if [[ -f "$DROPIN_FILE" ]]; then
-        echo "Installed:         yes"
-        echo
-        cat "$DROPIN_FILE"
-    else
-        echo "Installed:         no"
-    fi
-}
-
-run_downloader() {
-    [[ -x "$DOWNLOADER" ]] || fail "MiSTer Downloader launcher not found/executable: $DOWNLOADER"
-    say "Starting MiSTer Downloader..."
-    exec "$DOWNLOADER"
-}
-
-MODE="run"
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-        --install-only) MODE="install" ;;
-        --run)          MODE="run" ;;
-        --status)       MODE="status" ;;
-        --remove)       MODE="remove" ;;
-        -h|--help)      usage; exit 0 ;;
-        *)               fail "Unknown option: $1" ;;
-    esac
-    shift
-done
-
-case "$MODE" in
-    install) install_dropin ;;
-    remove)  remove_dropin ;;
-    status)  status ;;
-    run)
-        install_dropin
-        run_downloader
-        ;;
+case "${1:-}" in
+  "") install_dropin; exit 0 ;;
+  --install-only) install_dropin ;;
+  --status)
+    echo "MiSTer root: $MISTER_ROOT"
+    echo "Drop-in: $DROPIN_FILE"
+    if [[ -f "$DROPIN_FILE" ]]; then cat "$DROPIN_FILE"; else echo "not installed"; fi
+    ;;
+  --remove)
+    rm -f "$DROPIN_FILE"
+    echo "Removed: $DROPIN_FILE"
+    ;;
+  -h|--help) usage ;;
+  *) echo "Unknown option: $1" >&2; usage >&2; exit 2 ;;
 esac

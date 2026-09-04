@@ -2,65 +2,157 @@
 
 An opt-in distribution channel for unfinished, first-party, community, and AI-assisted MiSTer FPGA experiments.
 
-The project uses MiSTer Downloader's existing custom-database mechanism. The incubator adds project metadata, submission rules, testing expectations, and a graduation path instead of creating a second package format.
+The goal is deliberately simple: **make it easy to publish experimental work without pretending that experimental work is production-ready.** A project can enter the incubator early, receive a consistent distribution path, gather testers, and graduate when it is mature enough for the normal MiSTer ecosystem.
+
+## How it works
+
+This repository uses MiSTer Downloader's custom-database mechanism rather than creating a second package format. The DB-Template workflow generates `db/db.json.zip` and a drop-in Downloader `.ini`; users then run normal `update`/Downloader tooling. Repository paths are mirrored into the MiSTer filesystem, so paths intended to be core directories use MiSTer's `_`-prefixed directory convention. citeturn650381view0turn650381view1
+
+The experimental channel therefore looks like:
+
+```text
+GitHub repository
+      |
+      v
+GitHub Actions -> custom Downloader database
+      |
+      v
+MiSTer Downloader
+      |
+      v
+/media/fat/_Experimental/
+```
 
 ## Current pipeline test
 
-The repository now uses a real third-party MiSTer RBF as the pipeline test:
+The repository contains one pipeline test entry using the upstream `MiSTer-devel/InputTest_MiSTer` bitstream:
 
-`_Experimental/TestCore/InputTest_20260810.rbf`
+```text
+_Experimental/
+└── _TestCore/
+    └── InputTest_20260810.rbf
+```
 
-The bitstream is published by `MiSTer-devel/InputTest_MiSTer` and is referenced through `external_files.csv`; it is not an Experimental project submission. The InputTest core is GPL-3.0.
+The RBF is referenced through `external_files.csv`; it is not copied into this repository. It exists only to validate the distribution pipeline. It is **not** an incubator submission.
 
-The file is referenced as an external database asset rather than copied into this repository, so the project does not redistribute the binary itself.
+## Repository layout
 
-This verifies the complete pipeline:
+```text
+_Experimental/
+└── _<CoreName>/              # actual MiSTer payloads; core directories start with _
+    ├── <Core>.rbf
+    ├── <Core>.mra             # optional
+    └── <other runtime files>  # optional
 
-`GitHub main -> GitHub Actions -> db branch -> MiSTer Downloader -> MiSTer SD card -> RBF`
+authoring-only files:
+├── .github/                  # CI / database generation
+├── docs/                     # project policy and contributor docs
+├── examples/                 # templates only
+├── metadata/                 # registry metadata; not installed
+└── scripts/                  # development/updater helpers; not installed
+
+external_files.csv            # external payloads; not installed itself
+```
+
+## Submission lifecycle
+
+Every project starts as `experimental`.
+
+```text
+experimental -> developing -> candidate -> graduated
+```
+
+**Experimental** means the core may be incomplete, inaccurate, unstable, or missing features. It must still be buildable/distributable enough for someone else to test it.
+
+**Developing** means there is active development and the project has a maintainer responding to issues and documenting known problems.
+
+**Candidate** means the core is substantially functional and is being evaluated for graduation.
+
+**Graduated** means the incubator maintainers believe it belongs in the normal MiSTer distribution ecosystem and the project has a maintainer prepared to support it there.
+
+Graduation is a human decision, not an automated quality score.
+
+## Submission requirements
+
+A submission should provide:
+
+- A public source repository or otherwise reproducible source.
+- A clear license compatible with distribution of the source and any included artifacts.
+- A maintainer/contact.
+- The target platform and hardware requirements.
+- Known limitations and current status.
+- Build instructions or a reproducible build process.
+- ROM/BIOS requirements, when applicable.
+- SDRAM requirements, when applicable.
+- A statement describing AI assistance, when AI tools were used.
+
+AI assistance is **not** a rejection criterion. The incubator cares about whether the resulting project is usable, reviewable, and responsibly maintained.
+
+## What we will not do
+
+The experimental channel is not a place to silently replace production cores, distribute known malware, or ship arbitrary installation scripts.
+
+Prefer ordinary MiSTer payload files (`.rbf`, `.mra`, configuration/data files, documentation) installed through Downloader. Arbitrary per-core shell installers should not be required.
+
+Experimental artifacts are untrusted. Users should understand that installing an experimental core is different from installing a mature core from the main distribution.
+
+## Naming rules
+
+The top-level directory is:
+
+```text
+_Experimental/
+```
+
+Each core/project gets its own `_`-prefixed directory:
+
+```text
+_Experimental/_ProjectName/
+```
+
+Do not use spaces in project directory names. Use a stable, descriptive name because the path becomes part of the installed MiSTer filesystem and should not be changed casually.
+
+## Metadata
+
+`metadata/cores.json` is a registry for human-facing project information. It is deliberately separate from the Downloader database.
+
+The registry records status, maintainer, source, license, platform, SDRAM requirements, and notes. It is not itself installed on MiSTer.
+
+## Testing philosophy
+
+The incubator should make the **cost of trying an idea low**, while keeping its status obvious. A project does not need to pretend to be finished before people can test it.
+
+Before accepting a project into the channel, maintainers should at minimum verify that:
+
+1. The advertised artifact downloads.
+2. The artifact is placed at the intended MiSTer path.
+3. The project boots or otherwise behaves as documented on the stated hardware.
+4. Known limitations are documented.
+5. The submission does not overwrite unrelated MiSTer paths.
 
 ## Database
 
-The DB-Template workflow generates the database at:
+The generated database is published at:
 
-`https://raw.githubusercontent.com/austinbland1/MiSTer-Experimental/db/db.json.zip`
-
-It also generates a drop-in Downloader configuration on the `db` branch. The template mirrors repository paths into the MiSTer filesystem. Our workflow additionally sets `FINDER_IGNORE` so repository-only directories (`db`, `examples`, `metadata`, and `scripts`) are excluded from the install database. The only current database payload is the test RBF supplied through `external_files.csv`. citeturn674328view0turn770949view0
-
-## Manual Downloader integration
-
-Add this to `/media/fat/downloader.ini`:
-
-```ini
-[austinbland1/MiSTer-Experimental]
-db_url = https://raw.githubusercontent.com/austinbland1/MiSTer-Experimental/db/db.json.zip
+```text
+https://raw.githubusercontent.com/austinbland1/MiSTer-Experimental/db/db.json.zip
 ```
 
-MiSTer Downloader supports custom databases and drop-in `.ini` database files; after the database is added, normal `update` or Downloader runs will process it alongside other configured databases. citeturn337034view0turn674328view0
+The generated drop-in configuration is published under the `db` branch as well. DB-Template documents both the generated database URL and the drop-in `.ini` mechanism. citeturn650381view0
 
-## Experimental updater
+## Development
 
-`scripts/update_experimental.sh` is intended to install/refresh the project's drop-in database and then invoke the normal MiSTer Downloader. It does not replace `downloader.ini`.
+The database-generation workflow runs automatically on pushes to `main` and can also be dispatched manually from GitHub Actions.
 
-The current MVP assumes Downloader is at `/media/fat/Scripts/downloader.sh`, matching the official Downloader repository layout. citeturn337034view0
-
-## Repository-only metadata
-
-`metadata/cores.json` is not consumed directly by Downloader. It describes each incubator project: status, maintainer, source, hardware requirements, and notes.
-
-## Security model
-
-Experimental cores are untrusted artifacts. Submissions should prefer ordinary files that Downloader installs rather than arbitrary per-core shell installers. A contributor remains responsible for the code they publish, including AI-assisted code.
-
-## Project states
-
-`experimental -> developing -> candidate -> graduated`
-
-Graduation is a human review decision based on reproducibility, documented behavior, testing, stability, and a maintainer willing to support the project outside the incubator.
+The workflow excludes authoring-only directories from the install database. This prevents repository infrastructure such as `metadata/`, `docs/`, `examples/`, and `scripts/` from appearing on users' MiSTers.
 
 ## Roadmap
 
-1. Verify the test payload downloads correctly.
-2. Add a real experimental core with a reproducible release artifact.
-3. Add automated metadata validation.
-4. Add contributor submission and review workflow.
-5. Add clearer installed/status UX to `update_experimental`.
+- [x] Prove custom Downloader database generation.
+- [x] Prove a real RBF can be delivered through the database.
+- [x] Establish the `_Experimental/_ProjectName` directory convention.
+- [ ] Add automated metadata validation.
+- [ ] Add pull-request submission workflow.
+- [ ] Add maintainer review checklist.
+- [ ] Finish the standalone `update_experimental` UX.
+- [ ] Add the first genuine experimental core submission.

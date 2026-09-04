@@ -2,8 +2,7 @@ name: Build Custom Database
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 permissions: write-all
@@ -16,4 +15,4 @@ jobs:
         run: set -o pipefail && curl --fail --location https://raw.githubusercontent.com/theypsilon/Downloader_DB-Template_MiSTer/main/.github/build_db.py | python3 -
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FINDER_IGNORE: ./db ./examples ./metadata ./scripts
+          FINDER_IGNORE: ./db ./examples ./metadata ./scripts ./docs

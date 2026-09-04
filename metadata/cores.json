@@ -6,6 +6,8 @@
     "source": "https://github.com/MiSTer-devel/InputTest_MiSTer",
     "license": "GPL-3.0",
     "hardware": "MiSTer FPGA",
+    "path": "_Experimental/_TestCore/InputTest_20260810.rbf",
+    "sdram_required": false,
     "notes": "Third-party InputTest RBF used only to validate the experimental distribution pipeline. Not an Experimental project submission."
   }
 }

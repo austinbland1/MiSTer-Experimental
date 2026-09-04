@@ -1,0 +1,13 @@
+{
+  "id": "example_project",
+  "name": "Example Project",
+  "status": "experimental",
+  "maintainer": "github-user",
+  "source": "https://github.com/example/project",
+  "license": "GPL-3.0",
+  "hardware": "MiSTer FPGA",
+  "path": "_Experimental/_ExampleProject/example.rbf",
+  "sdram_required": true,
+  "minimum_sdram_mib": 32,
+  "description": "Describe what the project does."
+}
