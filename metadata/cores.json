@@ -1,13 +1,16 @@
 {
-  "pipeline_test_inputtest": {
-    "name": "InputTest pipeline test",
-    "status": "pipeline-test",
-    "maintainer": "MiSTer Experimental project",
-    "source": "https://github.com/MiSTer-devel/InputTest_MiSTer",
-    "license": "GPL-3.0",
-    "hardware": "MiSTer FPGA",
-    "path": "_Experimental/_TestCore/InputTest_20260810.rbf",
-    "sdram_required": false,
-    "notes": "Third-party InputTest RBF used only to validate the experimental distribution pipeline. Not an Experimental project submission."
-  }
+  "cores": [
+    {
+      "name": "Jinix Jupiter",
+      "slug": "jinix-jupiter",
+      "status": "experimental",
+      "release": "v0.2-rc1",
+      "release_type": "release-candidate",
+      "source_repository": "https://github.com/austinbland1/jinix_jupiter",
+      "release_url": "https://github.com/austinbland1/jinix_jupiter/releases/tag/v0.2-rc1",
+      "asset": "JinixJupiter_v0.2-rc1.rbf",
+      "path": "_Experimental/_JinixJupiter/JinixJupiter_v0.2-rc1.rbf",
+      "author": "austinbland1"
+    }
+  ]
 }
