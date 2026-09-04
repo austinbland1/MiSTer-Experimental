@@ -15,6 +15,22 @@
       "ai_assistance": "AI-assisted development",
       "rbf_sha256": "902aca80388a77f0e4e6f06f27f39988486b0b74e7118e1ebb72791ea8f91e71",
       "rbf_size_bytes": 2918792
+    },
+    {
+      "name": "Validation Test",
+      "slug": "validation-test",
+      "status": "experimental",
+      "release": "v0.1",
+      "release_type": "test",
+      "source_repository": "https://github.com/austinbland1/jinix_jupiter",
+      "release_url": "https://github.com/austinbland1/jinix_jupiter/releases/tag/v0.2-rc1",
+      "asset": "ValidationTest_v0.1.rbf",
+      "path": "_Experimental/_ValidationTest/ValidationTest_v0.1.rbf",
+      "author": "austinbland1",
+      "license": "GPL-2.0",
+      "ai_assistance": "AI-assisted development",
+      "rbf_sha256": "902aca80388a77f0e4e6f06f27f39988486b0b74e7118e1ebb72791ea8f91e71",
+      "rbf_size_bytes": 2918792
     }
   ]
 }
