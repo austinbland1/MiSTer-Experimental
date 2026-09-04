@@ -15,4 +15,5 @@ jobs:
         run: set -o pipefail && curl --fail --location https://raw.githubusercontent.com/theypsilon/Downloader_DB-Template_MiSTer/main/.github/build_db.py | python3 -
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FINDER_IGNORE: ./db ./examples ./metadata ./scripts ./docs
+          FINDER_IGNORE: ./db ./examples ./metadata ./scripts ./docs external_files.csv
+          EXTERNAL_FILES: external_files.csv
