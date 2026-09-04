@@ -3,28 +3,16 @@
   "channel": "experimental",
   "cores": [
     {
-      "id": "example-core",
-      "display_name": "Example Experimental Core",
+      "id": "experimental-test",
+      "name": "Experimental Test Payload",
       "status": "experimental",
-      "maintainer": "REPLACE_ME",
-      "source": "https://github.com/REPLACE_ME/REPLACE_ME",
-      "license": "MIT",
-      "description": "Replace this entry with a real project.",
-      "platform": "REPLACE_ME",
+      "platform": "test",
+      "maintainer": "MiSTer Experimental project",
+      "source": "https://github.com/austinbland1/MiSTer-Experimental",
+      "ai_assisted": false,
       "requires_sdram": false,
-      "minimum_sdram_mib": 0,
-      "hardware_notes": [],
-      "known_issues": [],
-      "release": {
-        "version": "0.1.0",
-        "date": "2026-09-04",
-        "artifact_url": "https://github.com/REPLACE_ME/REPLACE_ME/releases"
-      },
-      "graduation": {
-        "candidate": false,
-        "graduated": false,
-        "notes": ""
-      }
+      "payload": "_Experimental/TestCore/Experimental-Test.txt",
+      "notes": "Harmless payload used to verify Downloader database generation and installation. Not a core."
     }
   ]
 }

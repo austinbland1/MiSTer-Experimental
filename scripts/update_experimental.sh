@@ -9,8 +9,8 @@ DROPIN_FILE="${MISTER_ROOT}/downloader_experimental.ini"
 TMP_DIR="${TMPDIR:-/tmp}/mister-experimental"
 
 # These are intentionally configurable so a fork can point at its own database.
-EXPERIMENTAL_DB_URL="${EXPERIMENTAL_DB_URL:-https://raw.githubusercontent.com/REPLACE_ME/mister-experimental/main/db/db.json.zip}"
-EXPERIMENTAL_DB_ID="${EXPERIMENTAL_DB_ID:-experimental}"
+EXPERIMENTAL_DB_URL="${EXPERIMENTAL_DB_URL:-https://raw.githubusercontent.com/austinbland1/MiSTer-Experimental/db/db.json.zip}"
+EXPERIMENTAL_DB_ID="${EXPERIMENTAL_DB_ID:-austinbland1/MiSTer-Experimental}"
 
 usage() {
     cat <<USAGE
