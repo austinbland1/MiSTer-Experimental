@@ -1,18 +1,11 @@
 {
-  "schema_version": 1,
-  "channel": "experimental",
-  "cores": [
-    {
-      "id": "experimental-test",
-      "name": "Experimental Test Payload",
-      "status": "experimental",
-      "platform": "test",
-      "maintainer": "MiSTer Experimental project",
-      "source": "https://github.com/austinbland1/MiSTer-Experimental",
-      "ai_assisted": false,
-      "requires_sdram": false,
-      "payload": "_Experimental/TestCore/Experimental-Test.txt",
-      "notes": "Harmless payload used to verify Downloader database generation and installation. Not a core."
-    }
-  ]
+  "pipeline_test_inputtest": {
+    "name": "InputTest pipeline test",
+    "status": "pipeline-test",
+    "maintainer": "MiSTer Experimental project",
+    "source": "https://github.com/MiSTer-devel/InputTest_MiSTer",
+    "license": "GPL-3.0",
+    "hardware": "MiSTer FPGA",
+    "notes": "Third-party InputTest RBF used only to validate the experimental distribution pipeline. Not an Experimental project submission."
+  }
 }

@@ -4,17 +4,19 @@ An opt-in distribution channel for unfinished, first-party, community, and AI-as
 
 The project uses MiSTer Downloader's existing custom-database mechanism. The incubator adds project metadata, submission rules, testing expectations, and a graduation path instead of creating a second package format.
 
-## Current test payload
+## Current pipeline test
 
-This repository intentionally contains one harmless non-core payload:
+The repository now uses a real third-party MiSTer RBF as the pipeline test:
 
-`_Experimental/TestCore/Experimental-Test.txt`
+`_Experimental/TestCore/InputTest_20260810.rbf`
 
-It exists only to verify the complete pipeline:
+The bitstream is published by `MiSTer-devel/InputTest_MiSTer` and is referenced through `external_files.csv`; it is not an Experimental project submission. The InputTest core is GPL-3.0.
 
-`GitHub main -> GitHub Actions -> db branch -> MiSTer Downloader -> MiSTer SD card`
+The file is referenced as an external database asset rather than copied into this repository, so the project does not redistribute the binary itself.
 
-It is **not an FPGA core** and should never be described as one.
+This verifies the complete pipeline:
+
+`GitHub main -> GitHub Actions -> db branch -> MiSTer Downloader -> MiSTer SD card -> RBF`
 
 ## Database
 
@@ -22,7 +24,7 @@ The DB-Template workflow generates the database at:
 
 `https://raw.githubusercontent.com/austinbland1/MiSTer-Experimental/db/db.json.zip`
 
-It also generates a drop-in Downloader configuration on the `db` branch. The template mirrors repository paths into the MiSTer filesystem and ignores repository-only files such as `.github` and README/license files. citeturn674328view0turn770949view0
+It also generates a drop-in Downloader configuration on the `db` branch. The template mirrors repository paths into the MiSTer filesystem. Our workflow additionally sets `FINDER_IGNORE` so repository-only directories (`db`, `examples`, `metadata`, and `scripts`) are excluded from the install database. The only current database payload is the test RBF supplied through `external_files.csv`. citeturn674328view0turn770949view0
 
 ## Manual Downloader integration
 
