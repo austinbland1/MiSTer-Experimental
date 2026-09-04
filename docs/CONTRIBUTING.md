@@ -1,32 +1,35 @@
 # Contributing to MiSTer Experimental
 
-The incubator is intentionally friendly to unfinished work. You do not need a production-quality core to propose a project; you do need to be honest about its current state.
+MiSTer Experimental is an opt-in incubator for unfinished, experimental,
+community, and AI-assisted MiSTer FPGA projects.
 
-## Before submitting
+## Submission requirements
 
-Verify that the project builds, boots (or otherwise runs) on the hardware you claim to support, and document known limitations.
+Every project must provide:
 
-Choose one stable install directory:
+- A clear project name and maintainer.
+- A public source repository.
+- A specific reproducible release artifact.
+- A declared software/hardware license.
+- A documented MiSTer destination path.
+- Required hardware and SDRAM requirements, when applicable.
+- A description of known limitations.
+- A disclosure of AI assistance:
+  - none
+  - AI-assisted development
+  - substantially AI-generated
+  - other, with explanation
 
-```text
-_Experimental/_ProjectName/
-```
+Projects should use:
 
-Keep the project directory name stable once published.
+    _Experimental/_ProjectName/
 
-## Pull request contents
-
-A useful submission PR should include:
-
-- the metadata entry in `metadata/cores.json`;
-- the project payload under `_Experimental/_ProjectName/`, or an `external_files.csv` entry if the artifact is hosted elsewhere;
-- build/reproduction information;
-- hardware and SDRAM requirements;
-- known limitations;
-- AI-assistance disclosure, if applicable.
+and core directories must retain the leading `_` so MiSTer's menu recognizes them.
 
 ## Review
 
-Reviewers are checking distribution safety and testability first, not whether the project is polished. A project can be accepted while still being crude or incomplete.
+A pull request is required for new projects and significant release changes.
 
-A project can be removed from the incubator for security problems, license problems, broken/disappeared artifacts, path conflicts, abandoned maintenance, or material misrepresentation of its status.
+Automation checks metadata and repository structure first.
+Human review then evaluates functionality, reproducibility, documentation,
+licensing, and whether the artifact belongs in the experimental channel.

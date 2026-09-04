@@ -10,7 +10,11 @@
       "release_url": "https://github.com/austinbland1/jinix_jupiter/releases/tag/v0.2-rc1",
       "asset": "JinixJupiter_v0.2-rc1.rbf",
       "path": "_Experimental/_JinixJupiter/JinixJupiter_v0.2-rc1.rbf",
-      "author": "austinbland1"
+      "author": "austinbland1",
+      "license": "GPL-2.0",
+      "ai_assistance": "AI-assisted development",
+      "rbf_sha256": "902aca80388a77f0e4e6f06f27f39988486b0b74e7118e1ebb72791ea8f91e71",
+      "rbf_size_bytes": 2918792
     }
   ]
 }

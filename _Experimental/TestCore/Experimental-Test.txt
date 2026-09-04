@@ -1,8 +1,0 @@
-MiSTer Experimental Core Incubator - TEST PAYLOAD
-
-This harmless text file exists only to verify the custom Downloader database pipeline.
-
-Expected destination on a MiSTer SD card:
-  _Experimental/TestCore/Experimental-Test.txt
-
-This is not an FPGA core and must never be presented as one.
