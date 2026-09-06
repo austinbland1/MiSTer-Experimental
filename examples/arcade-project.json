@@ -1,0 +1,25 @@
+{
+  "name": "Example Arcade Core",
+  "slug": "example-arcade-core",
+  "status": "experimental",
+  "release": "20260905",
+  "source_repository": "https://github.com/example/arcade-core",
+  "release_url": "https://github.com/example/arcade-core/releases/tag/20260905",
+  "author": "github-user",
+  "license": "GPL-3.0",
+  "platform": "arcade",
+  "ai_assistance": "AI-assisted development",
+  "artifacts": [
+    {
+      "asset": "Arcade-Example_20260905.rbf",
+      "path": "_Arcade_Experimental/cores/Arcade-Example_20260905.rbf",
+      "role": "rbf"
+    },
+    {
+      "asset": "example.mra",
+      "path": "_Arcade_Experimental/example.mra",
+      "role": "mra"
+    }
+  ],
+  "notes": "Arcade artifact paths intentionally follow Main_MiSTer's native MRA/RBF relationship. Verify the selected _Arcade* root on real hardware before relying on it."
+}

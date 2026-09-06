@@ -8,13 +8,71 @@
       "release_type": "release-candidate",
       "source_repository": "https://github.com/austinbland1/jinix_jupiter",
       "release_url": "https://github.com/austinbland1/jinix_jupiter/releases/tag/v0.2-rc1",
-      "asset": "JinixJupiter_v0.2-rc1.rbf",
-      "path": "_Experimental/_JinixJupiter/JinixJupiter_v0.2-rc1.rbf",
       "author": "austinbland1",
       "license": "GPL-2.0",
       "ai_assistance": "AI-assisted development",
-      "rbf_sha256": "902aca80388a77f0e4e6f06f27f39988486b0b74e7118e1ebb72791ea8f91e71",
-      "rbf_size_bytes": 2918792
+      "platform": "other",
+      "artifacts": [
+        {
+          "asset": "JinixJupiter_v0.2-rc1.rbf",
+          "path": "_Experimental/_JinixJupiter/JinixJupiter_v0.2-rc1.rbf",
+          "role": "rbf",
+          "source": "external",
+          "sha256": "902aca80388a77f0e4e6f06f27f39988486b0b74e7118e1ebb72791ea8f91e71",
+          "size_bytes": 2918792
+        }
+      ]
+    },
+    {
+      "slug": "arcade-psikyo",
+      "name": "Arcade-Psikyo",
+      "status": "candidate",
+      "release": "20260904",
+      "release_type": "release",
+      "source_repository": "https://github.com/ppriest/Arcade-Psikyo_MiSTer",
+      "release_url": "https://github.com/ppriest/Arcade-Psikyo_MiSTer/tree/master/releases",
+      "author": "ppriest",
+      "license": "GPL-3.0",
+      "platform": "arcade",
+      "ai_assistance": "Substantially AI-generated",
+      "artifacts": [
+        {
+          "asset": "Arcade-Psikyo_20260904.rbf",
+          "path": "_Arcade_Experimental/cores/Arcade-Psikyo_20260904.rbf",
+          "role": "rbf",
+          "source": "external"
+        },
+        {
+          "asset": "Battle K-Road.mra",
+          "path": "_Arcade_Experimental/Battle K-Road.mra",
+          "role": "mra",
+          "source": "repository"
+        },
+        {
+          "asset": "Gunbird (World).mra",
+          "path": "_Arcade_Experimental/Gunbird (World).mra",
+          "role": "mra",
+          "source": "repository"
+        },
+        {
+          "asset": "Samurai Aces (World).mra",
+          "path": "_Arcade_Experimental/Samurai Aces (World).mra",
+          "role": "mra",
+          "source": "repository"
+        },
+        {
+          "asset": "Strikers 1945 (World).mra",
+          "path": "_Arcade_Experimental/Strikers 1945 (World).mra",
+          "role": "mra",
+          "source": "repository"
+        },
+        {
+          "asset": "Tengai (World).mra",
+          "path": "_Arcade_Experimental/Tengai (World).mra",
+          "role": "mra",
+          "source": "repository"
+        }
+      ]
     }
   ]
 }
