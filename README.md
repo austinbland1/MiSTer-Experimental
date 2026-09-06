@@ -47,6 +47,8 @@ Jinix Jupiter is currently classified as `experimental` and is explicitly disclo
 
 Inclusion in this incubator does not imply official MiSTer endorsement, production stability, correctness, or hardware validation beyond what the individual project and its documentation actually claim.
 
+For the first Arcade integration test, `Gunbird (World).mra` was installed through Downloader, recognized under `Arcade_Experimental`, and successfully launched using `Arcade-Psikyo_20260904.rbf` on real MiSTer hardware. The required `gunbird.zip` ROM set was supplied separately by the tester in the normal `games/mame/` location.
+
 ## Repository layout
 
 ### Non-Arcade cores
@@ -72,7 +74,7 @@ _Arcade_Experimental/
     └── Arcade-Example_YYYYMMDD.rbf
 ```
 
-The `_Arcade_Experimental` layout is currently an **integration hypothesis that has passed repository/database validation but still requires real MiSTer menu/loader testing before it should be described as officially supported by Main_MiSTer**.
+The `_Arcade_Experimental` layout has now been **verified on real MiSTer hardware**. MiSTer recognizes it as an Arcade collection, Downloader installs the associated MRA/RBF payloads without errors, and `Gunbird (World)` has been successfully launched through the associated dated RBF after supplying the required local MAME ROM set. This verifies the layout on the tested MiSTer configuration; it is not a claim of official MiSTer-devel support.
 
 ### Authoring-only files
 
@@ -285,6 +287,7 @@ The current implementation is still an MVP. The underlying distribution mechanis
 - [x] Add artifact size and SHA-256 verification.
 - [x] Add the first genuine experimental core submission: Jinix Jupiter v0.2-rc1.
 - [x] Add the first Arcade integration test project: Arcade-Psikyo 20260904.
+- [x] Verify an Arcade MRA successfully launches through the associated dated RBF on real MiSTer hardware.
 - [x] Protect `main` with required validation and human review.
 
 ### In progress
@@ -294,7 +297,7 @@ The current implementation is still an MVP. The underlying distribution mechanis
 - [ ] Add clearer installed/status information for Experimental projects.
 - [ ] Add richer lifecycle tooling for `experimental`, `developing`, `candidate`, and `graduated` states.
 - [ ] Harden CI against untrusted pull-request code and artifacts.
-- [ ] Test the `_Arcade_Experimental` layout on real MiSTer hardware and document the observed loader behavior.
+- [x] Test the `_Arcade_Experimental` layout on real MiSTer hardware and document the observed loader behavior.
 - [ ] Improve selective install/removal behavior so users can manage Experimental projects individually.
 
 ### Future

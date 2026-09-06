@@ -14,7 +14,7 @@ _Experimental/_ProjectName/<artifact>
 
 Arcade submissions use an `_Arcade*` root rather than nesting Arcade material under `_Experimental`.
 
-The expected relationship is:
+The verified relationship is:
 
 ```text
 _Arcade_Experimental/
@@ -23,8 +23,19 @@ _Arcade_Experimental/
     └── Arcade-Example_YYYYMMDD.rbf
 ```
 
-`Main_MiSTer` derives the Arcade root from the underscore-prefixed directory containing the MRA and then uses `<root>/cores` for the RBF. That behavior is visible in `support/arcade/mra_loader.cpp`. The standard MiSTer Arcade documentation also describes the MRA/RBF relationship as `/_Arcade/<game>.mra` and `/_Arcade/cores/<game>.rbf`.
+The MRA retains its normal `<rbf>` core identity, while the RBF may use the upstream Arcade project's date-based release filename. The current `Arcade-Psikyo` integration demonstrates this with `Arcade-Psikyo_20260904.rbf` and MRAs declaring `<rbf>Arcade-Psikyo</rbf>`.
 
-Experimental therefore treats the upstream Arcade release naming/version as authoritative. It does not require an Experimental-specific semantic version.
+## Verification status
 
-The `_Arcade_Experimental` namespace is an **integration hypothesis that must be hardware-tested**. Do not describe it as officially supported by Main_MiSTer until the real MiSTer menu/loader path has been tested.
+The `_Arcade_Experimental` namespace has been **verified on real MiSTer hardware** using the current public-preview database. The test established that:
+
+1. MiSTer recognizes `_Arcade_Experimental` as an Arcade collection.
+2. Downloader installs the associated five MRAs and the dated RBF without errors.
+3. `Gunbird (World).mra` successfully selects and launches the associated `Arcade-Psikyo_20260904.rbf`.
+4. The game successfully runs when the required `gunbird.zip` ROM set is supplied separately in the normal `games/mame/` location.
+
+This verifies the current layout on the tested MiSTer configuration. It does **not** imply that `_Arcade_Experimental` is an official MiSTer-devel namespace or that every future MiSTer version will preserve the same behavior without further testing.
+
+## Naming and versioning
+
+Experimental does not require an Experimental-specific semantic version for Arcade RBFs. The upstream Arcade project's release naming/versioning should remain authoritative where practical. The Experimental layer provides the installation namespace; it should not unnecessarily fork upstream artifact naming conventions.
